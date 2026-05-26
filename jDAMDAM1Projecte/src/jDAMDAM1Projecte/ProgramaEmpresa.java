@@ -14,7 +14,7 @@ public class ProgramaEmpresa {
 		boolean open = true; char ver; boolean openP = true;
 		try
         {
-        	Connection con=DriverManager.getConnection("jdbc:postgresql://localhost:5432/factura","postgres","972325248lorenZ");
+        	Connection con=DriverManager.getConnection("jdbc:postgresql://localhost:5432/factura","postgres","password");
             Statement stmt=con.createStatement(0,ResultSet.CONCUR_UPDATABLE);
             
             ResultSet rr=stmt.executeQuery("select codi_producte,nom,stock,preu,iva,actiu from producte;");
@@ -33,7 +33,7 @@ public class ProgramaEmpresa {
             	System.out.println("\t**Benvolgut a [GestioAdministradors]\n**Introdueixi el seu codi per continuar:");
             	String codi = lector.nextLine().toLowerCase();
             	ResultSet rs = stmt.executeQuery("select codi from adm where codi='"+codi+"';");
-            	//System.out.println("\t**Benvolgut a [GestioProducte]\n\tSeleccioni gestiÛ:");
+            	//System.out.println("\t**Benvolgut a [GestioProducte]\n\tSeleccioni gesti√≥:");
             	while(!(rs.next())) {
             		System.out.println("\t**Benvolgut a [GestioProducte]\n\t**Introdueixi el seu codi per continuar:");
                 	 codi = lector.nextLine();
@@ -41,7 +41,7 @@ public class ProgramaEmpresa {
             	}
             	
             		do {
-            			System.out.println("\t**Benvolgut a [GestioAdministradors]\n\tSeleccioni gestiÛ:");
+            			System.out.println("\t**Benvolgut a [GestioAdministradors]\n\tSeleccioni gesti√≥:");
             			System.out.println("\t\t 1*Alta Producte\n\t\t 2*Modificar Producte \n\t\t 3*Baixa Producte\n\t\t 4*Canviar d'usuari\n\t\t 5*Veure client\n\t\t 6*Veure clients\n\t\t 7*Sortir");
             			String entrar = lector.nextLine();
             			switch(entrar) {
@@ -50,10 +50,10 @@ public class ProgramaEmpresa {
             					System.out.println("**VERIFICACIO: Vols crear un producte?[y/n]");
             					ver = lector.nextLine().toLowerCase().charAt(0);
             					if(ver == 'y') {
-            						System.out.println("IntroduÔr codi del producte");
+            						System.out.println("Introdu√Ør codi del producte");
         							String codiP = lector.nextLine();
         							if(codiP.length() >4) {
-        								codiP = codiP.substring(0,4); System.out.println("CODI REDUœT : "+ codiP);
+        								codiP = codiP.substring(0,4); System.out.println("CODI REDU√èT : "+ codiP);
         							}
         							rs=stmt.executeQuery("select codi_producte from producte where codi_producte='"+codiP+"';");
         							if((rs.next())) {
@@ -64,7 +64,7 @@ public class ProgramaEmpresa {
         								String nom = lector.nextLine();
         								nom = nom.toUpperCase().charAt(0) + nom.substring(1, nom.length()).toLowerCase();
         								if(nom.length() > 50) {
-        									nom = nom.substring(0,49); System.out.println("NOM REDUœT: "+ nom);
+        									nom = nom.substring(0,49); System.out.println("NOM REDU√èT: "+ nom);
         								}
         								System.out.println("Introdueixi stock");
         								int stock = 0;
@@ -126,7 +126,7 @@ public class ProgramaEmpresa {
         									iva = rs.getInt("iva");
         								}
         								//////////
-        								System.out.println("PRODUCTE introduÔt: " + codiP + " NOM: " + nom +" PREU: "+ preu +" STOCK: "+stock +" IVA: " +iva);
+        								System.out.println("PRODUCTE introdu√Øt: " + codiP + " NOM: " + nom +" PREU: "+ preu +" STOCK: "+stock +" IVA: " +iva);
         								Producte aux = new Producte(codiP,nom,preu,stock,iva,true);
         								inventari.afegir(aux);
         								inventari.afegirProducteBD(con, aux);
@@ -191,7 +191,7 @@ public class ProgramaEmpresa {
                 						 codiP = lector.nextLine();
                 						 rs = stmt.executeQuery("select codi_producte from producte where codi_producte='"+codiP+"';");
             						}
-            						System.out.println("**PRODUCTE" + codiP+" ESBORRAT AMB »XIT");
+            						System.out.println("**PRODUCTE" + codiP+" ESBORRAT AMB √àXIT");
             						inventari.baixaProducte(con, codiP);
             					}
             					break;
