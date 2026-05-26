@@ -18,7 +18,7 @@ public class GestioClient {
 		boolean open = true; char ver;
 		try
         {
-        	Connection con=DriverManager.getConnection("jdbc:postgresql://localhost:5432/factura","postgres","972325248lorenZ");
+        	Connection con=DriverManager.getConnection("jdbc:postgresql://localhost:5432/factura","postgres","password");
             Statement stmt=con.createStatement(0,ResultSet.CONCUR_UPDATABLE);
             do {
             	ResultSet rr = stmt.executeQuery("select dni,nom,telefon,correu,adreca,contrasenya,actiu from client;");
@@ -33,8 +33,8 @@ public class GestioClient {
             		
             		
             	}
-            	System.out.println("\t**Benvolgut a [GestioClients]\n\tSeleccioni gestió:");
-            	System.out.println("\n\t\t 2*Modificació Dades Client\n\t\t 3*Entrar com Usuari\n\t\t 5*Esborrar Client \n\t\t 6*Sortir");
+            	System.out.println("\t**Benvolgut a [GestioClients]\n\tSeleccioni gestiÃ³:");
+            	System.out.println("\n\t\t 2*ModificaciÃ³ Dades Client\n\t\t 3*Entrar com Usuari\n\t\t 5*Esborrar Client \n\t\t 6*Sortir");
             	String entrar = lector.nextLine();
             	switch(entrar) {
             	case"1"://ALTA CLIENT
@@ -59,23 +59,23 @@ public class GestioClient {
 						nom = nom.toUpperCase().charAt(0) + nom.substring(1, nom.length()).toLowerCase(); //COGE LA PALABRA Y PONE EL PRIMER CHARACTER EN MAYUSUCLA
 						if(nom.length()>49) { //SI ELNOMBRE ES MAYOR A 50 LO RECORTA, PARA EVITAR PROBLEMAS EN LA BD
 							nom = nom.substring(0,49);
-							System.out.println("**NOM introduüit reduït :["+nom+"]");
+							System.out.println("**NOM introduÃ¼it reduÃ¯t :["+nom+"]");
 						}
 						System.out.println("Introdueixi TELEFON");
 						String telefon = lector.nextLine();
 						while(!(jDAMDAM1Projecte.Funcions.verifyTelefon(telefon))) {
-							System.out.println("**ERROR DE VALIDACIÒ**");
+							System.out.println("**ERROR DE VALIDACIÃ’**");
 							System.out.println("Introdueixi TELEFON");
 							telefon = lector.nextLine();
 						}
 						System.out.println("Introdueixi MAIL");
 						String mail = lector.nextLine();
 						while(!(jDAMDAM1Projecte.Funcions.verifyMail(mail))) {
-							System.out.println("**ERROR DE VALIDACIÒ**");
+							System.out.println("**ERROR DE VALIDACIÃ’**");
 							System.out.println("Introdueixi MAIL");
 							mail = lector.nextLine();
 						}
-						System.out.println("Introdueixi ADREÇA");
+						System.out.println("Introdueixi ADREÃ‡A");
 						String adreca = lector.nextLine();
 						boolean actiu = true;
 						boolean correcte = false;
@@ -84,7 +84,7 @@ public class GestioClient {
 							System.out.println("Introdueixi CONTRANSENYA per l'usuari");
 							 contrasenya = lector.nextLine();
 								if(contrasenya.length() >= 50) {
-									System.out.println("**ERROR DE VALIDACIÓ**\nAVIS:La contrasenya ha de MÀXIM 50 càracters.");
+									System.out.println("**ERROR DE VALIDACIÃ“**\nAVIS:La contrasenya ha de MÃ€XIM 50 cÃ racters.");
 								}
 								else {
 									System.out.println("USUARI CREAT AMB CREDENCIALS :\n\t" + dni +" - " + nom +" - "+ telefon +" - "+mail +" - " + adreca+"\n\n");
@@ -109,7 +109,7 @@ public class GestioClient {
 							jDAMDAM1Projecte.Funcions.modificarDades(con, stmt, usuariPermanent,inventari);
 						}
 						/*else if(forma.equalsIgnoreCase("2")) {
-							System.out.println("Introduïr dni");
+							System.out.println("IntroduÃ¯r dni");
 							String dni = lector.nextLine();
 							ResultSet rs= stmt.executeQuery("select dni from client where dni='"+dni+"';");
 							if(rs.next()) {
@@ -117,14 +117,14 @@ public class GestioClient {
 								String contrasenya = lector.nextLine();
 								rs = stmt.executeQuery("select contrasenya from client where dni='"+dni+"' and contrasenya ='" +contrasenya+"';");
 								while(!(rs.next())) {
-									System.out.println("**ERROR DE VALIDACIÓ**\nIntrodueixi la seva contrasenya");
+									System.out.println("**ERROR DE VALIDACIÃ“**\nIntrodueixi la seva contrasenya");
 									contrasenya = lector.nextLine();
 									rs = stmt.executeQuery("select contrasenya from client where dni='"+dni+"' and contrasenya ='" +contrasenya+"';");
 								}
 								jDAMDAM1Projecte.Funcions.modificarDades(con, stmt, dni,inventari);
 								
 							}
-							else System.out.println("**El DNI "+ dni +" no esta introduït a la base de dades.");	
+							else System.out.println("**El DNI "+ dni +" no esta introduÃ¯t a la base de dades.");	
 						}*/
 					}
 					else System.out.println("*--SORTINT DE [MODIFICAR CLIENT]");
@@ -135,19 +135,19 @@ public class GestioClient {
 					System.out.println("**VERIFICACIO: Vols entrar com client?[y/n]");
 					ver = lector.nextLine().toLowerCase().charAt(0);
 					if(ver == 'y') {
-						System.out.println("Introduïr dni");
+						System.out.println("IntroduÃ¯r dni");
 						String dni = lector.nextLine(); //SI INTENTS ES 5 SURT AUTOMATIC
 						ResultSet rs = stmt.executeQuery("select dni from client where dni='"+dni+"';"); boolean correcte = false;
 						while(!(rs.next())) {
-							System.out.println("Introduïr dni");
+							System.out.println("IntroduÃ¯r dni");
 							dni = lector.nextLine();
 							rs = stmt.executeQuery("select dni from client where dni='"+dni+"';");	
 						}
-						System.out.println("Introduïr la contrasenya");
+						System.out.println("IntroduÃ¯r la contrasenya");
 						String contrasenya = lector.nextLine();
 						rs = stmt.executeQuery("select contrasenya from client where contrasenya='"+contrasenya+"' and dni='"+dni+"';");
 						while(!(rs.next())) {
-							System.out.println("Introduïr la contrasenya");
+							System.out.println("IntroduÃ¯r la contrasenya");
 							contrasenya = lector.nextLine();
 						}
 						usuariPermanent = dni;
@@ -160,11 +160,11 @@ public class GestioClient {
 					else System.out.println("*--SORTINT DE [ENTRAR COM USUARI]");
             		break;
             	case"4"://SORTIR COM USUARI
-            		System.out.println("**VERIFICACIO: Segur que vols tancar la sessió?[y/n]");
+            		System.out.println("**VERIFICACIO: Segur que vols tancar la sessiÃ³?[y/n]");
             		ver = lector.nextLine().toLowerCase().charAt(0);
             		if(ver == 'y') {
             			usuariPermanent = "";
-            			System.out.println("**Sessió tancada correctament.");
+            			System.out.println("**SessiÃ³ tancada correctament.");
             		}
             		break;
             	case"5":
@@ -176,60 +176,60 @@ public class GestioClient {
 						String usuari = lector.nextLine();
 						if(usuari.equalsIgnoreCase("1")||usuari.equalsIgnoreCase("2")) {
 							if(usuari.equalsIgnoreCase("1")) {
-								System.out.println("Introduïr dni");
+								System.out.println("IntroduÃ¯r dni");
 								String dni = lector.nextLine(); //SI INTENTS ES 5 SURT AUTOMATIC
 								ResultSet rs = stmt.executeQuery("select dni from client where dni='"+dni+"';"); 
 								while(!(rs.next())) {
-									System.out.println("Introduïr dni");
+									System.out.println("IntroduÃ¯r dni");
 									dni = lector.nextLine();
 									rs = stmt.executeQuery("select dni from client where dni='"+dni+"';");	
 								}
-								System.out.println("Introduïr la contrasenya");
+								System.out.println("IntroduÃ¯r la contrasenya");
 								String contrasenya = lector.nextLine();
 								rs = stmt.executeQuery("select contrasenya from client where contrasenya='"+contrasenya+"' and dni='"+dni+"';");
 								while(!(rs.next())) {
-									System.out.println("Introduïr la contrasenya");
+									System.out.println("IntroduÃ¯r la contrasenya");
 									contrasenya = lector.nextLine();
 								}
-								System.out.println("**VERIFICACIÓ: Segur que vols desactivar el teu usuari?[y/n]");
+								System.out.println("**VERIFICACIÃ“: Segur que vols desactivar el teu usuari?[y/n]");
 								char v = lector.nextLine().toLowerCase().charAt(0);
 								if(v == 'y') {
 									Statement declaracio=con.createStatement();
 									declaracio.executeUpdate("UPDATE client set actiu='"+false+"' where dni='"+dni+"';");
-									System.out.println("**COMPTA DESACTIVADA AMB ÉXIT**");
+									System.out.println("**COMPTA DESACTIVADA AMB Ã‰XIT**");
 								}
 								
 							}
 							else {
-								System.out.println("Introduïr dni");
+								System.out.println("IntroduÃ¯r dni");
 								String adm = lector.nextLine(); //SI INTENTS ES 5 SURT AUTOMATIC
 								ResultSet rs = stmt.executeQuery("select codi from client where codi='"+adm+"';");
 								while(!(rs.next())) {
-									System.out.println("Introduïr codi");
+									System.out.println("IntroduÃ¯r codi");
 									adm = lector.nextLine();
 									rs = stmt.executeQuery("select  from adm where codi='"+adm+"';");	
 								}
-								System.out.println("Introduïr la contrasenya");
+								System.out.println("IntroduÃ¯r la contrasenya");
 								String contrasenya = lector.nextLine();
 								rs = stmt.executeQuery("select contrasenya from adm where contrasenya='"+contrasenya+"' and codi='"+adm+"';");
 								while(!(rs.next())) {
-									System.out.println("Introduïr la contrasenya");
+									System.out.println("IntroduÃ¯r la contrasenya");
 									contrasenya = lector.nextLine();
 								}
 								//PREGUNTAR USUARI A DESACTIVAR
-								System.out.println("**VERIFICACIÓ: Segur que vols desactivar un usuari?[y/n]");
+								System.out.println("**VERIFICACIÃ“: Segur que vols desactivar un usuari?[y/n]");
 								char v = lector.nextLine().toLowerCase().charAt(0);
 								if(v == 'y') {
 									System.out.println("Introdueix el dni"); //VERIFICAR
 									String dni = lector.nextLine();
 									rs = stmt.executeQuery("select dni from client where dni='"+dni+"';");
 									while(!(rs.next())) {
-										System.out.println("Introduïr la contrasenya");
+										System.out.println("IntroduÃ¯r la contrasenya");
 										contrasenya = lector.nextLine();
 									}
 									Statement declaracio=con.createStatement();
 									declaracio.executeUpdate("UPDATE client set actiu='"+false+"' where dni='"+dni+"';");
-									System.out.println("**COMPTA DESACTIVADA AMB ÉXIT**");
+									System.out.println("**COMPTA DESACTIVADA AMB Ã‰XIT**");
 									inventari.baixa(dni); //LA BAIXA EN EL OBJECTE
 								}
 							}
