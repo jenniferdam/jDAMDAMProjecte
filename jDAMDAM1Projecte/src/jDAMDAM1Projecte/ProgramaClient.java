@@ -17,7 +17,7 @@ public class ProgramaClient {
 		
 		boolean open = true;
 		try {
-			Connection con=DriverManager.getConnection("jdbc:postgresql://localhost:5432/factura","postgres","972325248lorenZ");
+			Connection con=DriverManager.getConnection("jdbc:postgresql://localhost:5432/factura","postgres","password");
             Statement stmt=con.createStatement(0,ResultSet.CONCUR_UPDATABLE);
             do {
 				jDAMDAM1Projecte.Funcions.inventariRestore(stmt, inventari);
@@ -30,8 +30,8 @@ public class ProgramaClient {
 				 usuari = lector.nextLine();
 				ResultSet rs = stmt.executeQuery("select dni from client where dni='"+usuari+"';");
 				char v='p';
-				String texte1= "**ERROR DE VALIDACIÓ: " + usuari +"No trobat a la base de dades";
-				String texte2= "Tornar a vàlidar? Si no es vàlida es rediccionarà a [Alta Usuari] [y/n]";
+				String texte1= "**ERROR DE VALIDACIÃ“: " + usuari +"No trobat a la base de dades";
+				String texte2= "Tornar a vÃ lidar? Si no es vÃ lida es rediccionarÃ  a [Alta Usuari] [y/n]";
 				while(!(rs.next() && v != 'n')) {
 					System.out.println(texte1);
 					System.out.println(texte2);
@@ -45,7 +45,7 @@ public class ProgramaClient {
 						usuari = jDAMDAM1Projecte.Funcions.altaClient(con, stmt, inventari);
 					
 					 rs = stmt.executeQuery("select dni from client where dni='"+usuari+"';");
-					 texte1 = "El seu dni s'ha vàlidat a la base de dades:";
+					 texte1 = "El seu dni s'ha vÃ lidat a la base de dades:";
 					 texte2="Si vol validar-se clickar lletra [y]\nSi vol crear un altre un altre usuari cliclar[n]";
 						
 					}
@@ -56,13 +56,13 @@ public class ProgramaClient {
 				String cont = lector.nextLine();
 				rs = stmt.executeQuery("select contrasenya from client where dni='"+usuari+"' and contrasenya='"+cont+"';");
 				while(!(rs.next())) {
-					System.out.println("**ERROR DE VALIDACIÓ: " + cont +"No coincident");
+					System.out.println("**ERROR DE VALIDACIÃ“: " + cont +"No coincident");
 					System.out.println("Introdueixi la seva contrasenya");
 					 cont = lector.nextLine();
 				}
 				boolean openP =true;
 				do {
-						System.out.println("Seleccioni una opció:    1*Veure Productes \n\t\t\t 2*Comprar Producte\n\t\t\t 4*Configuració\n\t\t 5*Sortir usuari\n\t\t 6*Sortir");
+						System.out.println("Seleccioni una opciÃ³:    1*Veure Productes \n\t\t\t 2*Comprar Producte\n\t\t\t 4*ConfiguraciÃ³\n\t\t 5*Sortir usuari\n\t\t 6*Sortir");
 						String entrar = lector.nextLine();
 						switch(entrar) {
 						case "1": //VEURE PRODUCTE
@@ -79,7 +79,7 @@ public class ProgramaClient {
 							System.out.println("Per continuar amb la seva compra prengui la n [n]");
 							char ver = lector.nextLine().toLowerCase().charAt(0);
 							while(!(ver == 's')) {
-								System.out.println("Seleccioni operació: [p]-[n]-[s]");
+								System.out.println("Seleccioni operaciÃ³: [p]-[n]-[s]");
 								char opcio = lector.nextLine().toLowerCase().charAt(0);
 								if(opcio == 'p') {
 									jDAMDAM1Projecte.Producte.veureProductes(inventarii);
@@ -87,7 +87,7 @@ public class ProgramaClient {
 								}
 								else if(opcio == 'n') {
 									System.out.println("Per sortir del apartat compra prengui la lletra [s]");
-									System.out.println("Introdueixi qualsevol lletra per començar");
+									System.out.println("Introdueixi qualsevol lletra per comenÃ§ar");
 									String cO = lector.nextLine().toLowerCase();int element = 0;
 									
 									while(!(cO.equalsIgnoreCase("s"))) {
@@ -101,9 +101,9 @@ public class ProgramaClient {
 											int stock = rs.getInt("stock");
 											while(stock > 0 && !(cO.equals("c"))) {
 										
-											System.out.println("Introdueixi quantitat;  Quantitat màxima :" + stock );
+											System.out.println("Introdueixi quantitat;  Quantitat mÃ xima :" + stock );
 											int qnt = 0;
-											 qnt = jDAMDAM1Projecte.Funcions.verifyNumberFrase(qnt, "Introdueixi quantitat;  Quantitat màxima :\" + stock ");
+											 qnt = jDAMDAM1Projecte.Funcions.verifyNumberFrase(qnt, "Introdueixi quantitat;  Quantitat mÃ xima :\" + stock ");
 											 stock = stock-qnt;  cO = "c"; element++;  quantitat.add(qnt);
 												jDAMDAM1Projecte.Funcions.inventariRestore(stmt, inventarii); //ACTUALIZAR ELS PRODUCTES QUE TENIM
 											 Producte e = inventarii.agafar(num);
@@ -125,7 +125,7 @@ public class ProgramaClient {
 									ver = 's';
 								}
 								if(carret.size()>=1) {
-									System.out.println("En el seu carret hi ha els elements següents");
+									System.out.println("En el seu carret hi ha els elements segÃ¼ents");
 									for(int i = 0; i < carret.size();i++) {
 										System.out.println(carret.get(i).getCodi() +" - "+carret.get(i).getNom() +" - PREU" + carret.get(i).getPreu() +" - QUANTITAT"+ quantitat.get(i));
 									}
@@ -164,7 +164,7 @@ public class ProgramaClient {
 													}
 													else {
 														quantitat.set(index, qnt);
-														System.out.println("*Linea canviada amb èxit*\n" + codi + " - " +qnt);
+														System.out.println("*Linea canviada amb Ã¨xit*\n" + codi + " - " +qnt);
 														
 													}
 												}
